@@ -1,8 +1,8 @@
 # React (Redux) - bank app
 
-# 🔗 [Live Preview]()
+# 🔗 [Live Preview](https://main--aesthetic-lamington-f4a75b.netlify.app/)
 
-![Design preview]()
+![Design preview](./public/preview.png)
 
 ---
 
@@ -10,60 +10,84 @@
 
 This small practice app's main goal is to practice using managing global state using redux toolkit and vanilla redux. It allows users to deposit or withdraw money, request and repay loans into their bank accounts. It also supports simple customer creation, so new users can quickly set up their accounts.
 
-
 Created using create-react-app
 
 ---
 
 ## Features 👨‍💻
 
--   **Create New Customer:** Enter your full name and national ID to create a new customer profile. This is the first step before accessing any account operations.
+- **Create New Customer:** Enter your full name and national ID to create a new customer profile. This is the first step before accessing any account operations.
 
-    -   **Account Operations:**
+  - **Account Operations:**
 
-    -   **Deposit Money:** Add money to your account in different currencies, and it will be automatically converted to USD.
+  - **Deposit Money:** Add money to your account in different currencies, and it will be automatically converted to USD.
 
-    -   **Withdraw Money:** Take money out of your account at any time.
+  - **Withdraw Money:** Take money out of your account at any time.
 
-    -   **Request a Loan:** Apply for a loan by specifying the amount and purpose. If approved, the loan amount will be added to your balance.
+  - **Request a Loan:** Apply for a loan by specifying the amount and purpose. If approved, the loan amount will be added to your balance.
 
-    -   **Pay Back Loan:** Repay your loan once you have the funds available.
-    
-    -   **Balance Display:** Always stay informed about your account balance, displayed in USD for easy understanding.
+  - **Pay Back Loan:** Repay your loan once you have the funds available.
+
+  - **Balance Display:** Always stay informed about your account balance, displayed in USD for easy understanding.
+
+  - **Asynchronous Actions:** Handle asynchronous operations such as fetching currency conversion rates with redux-thunk.
 
 ---
 
-## How it works ⚙️
+## Components and Redux Slices ⚙️
 
+-   **App Component:**
 
-1.  **App Component:**
-    -   This is the main component that renders either the customer creation form or the account operations and balance display based on whether a customer has been created.
+    -   The main entry point of the application.
+    -   Renders either the customer creation form or the banking interface depending on whether a customer is created.
+    -   Uses `useSelector` to fetch the customer's full name from the Redux store.-   **CreateCustomer Component:**
 
-2.  **CreateCustomer Component:**
-    -   Handles the creation of a new customer by taking inputs for full name and national ID. Dispatches the `createCustomer` action to store the customer's information in the Redux store.
+    -   A form for creating a new customer.
+    -   Dispatches the `createCustomer` action to update the Redux store with the new customer's details.
+    -   Fields: `fullName`, `nationalID`.-   **Customer Component:**
 
-3.  **Customer Component:**
-    -   Displays a welcome message with the customer's name once they have been created.
+    -   Displays a welcome message to the customer.
+    -   Uses `useSelector` to retrieve the customer's full name from the Redux store.
+    -   **AccountOperations Component:**
 
-4.  **AccountOperations Component:**
-    -   This component provides a user interface for performing account operations like deposits, withdrawals, loan requests, and loan payments. It interacts with the Redux store to dispatch relevant actions.
+    -   Allows the user to perform various account-related operations:
+        -   **Deposit:** Deposits a specified amount of money in a selected currency. If the currency is not USD, it converts the amount to USD using an external API.
+        -   **Withdraw:** Withdraws a specified amount of money from the account.
+        -   **Request Loan:** Requests a loan with a specified amount and purpose. A loan can only be requested if there is no outstanding loan.
+        -   **Pay Loan:** Pays off the current loan.
+    -   Uses `useSelector` to fetch the current loan status and `useDispatch` to trigger Redux actions.-   **BalanceDisplay Component:**
 
-5.  **BalanceDisplay Component:**
-    -   Displays the user's current balance in USD. This component pulls data from the Redux store to ensure accurate and real-time information.
+    -   Displays the current account balance formatted as currency.
+    -   Uses `connect` to map the account balance from the Redux store to the component props.
 
 ### State Management
 
--   **Redux Store:**
+- **Redux Store:**
 
-    -   The app uses Redux for state management, with two main slices: `accountSlice` and `customerSlice`.
+- **Account Slice:**
 
--   **Account Slice:**
-    -   Manages the balance, loan details, and loading states related to currency conversion.
-    -   Actions include `deposit`, `withdraw`, `requestLoan`, and `payLoan`.
+  - **State:** Manages the account's balance, loan amount, loan purpose, and loading state for currency conversion.
 
--   **Customer Slice:**
-    -   Handles customer details like full name, national ID, and creation date.
-    -   Actions include `createCustomer` and `updateName`.
+  - **Actions:**
+    - **deposit:** Adds the deposited amount to the balance. If a currency conversion is required, it triggers an async action.
+
+    - **withdraw:** Subtracts the specified amount from the balance.
+
+    - **requestLoan:** Grants a loan and adds the loan amount to the balance, provided there is no existing loan.
+
+    - **payLoan:** Pays off the current loan by subtracting the loan amount from the balance.
+
+    - **convertingCurrency:** Updates the loading state while waiting for currency conversion.
+
+  - **Async Thunk:**
+
+    - `deposit`: Handles the conversion of foreign currency deposits to USD by making an API call to `https://api.frankfurter.app`.- **Customer Slice:**
+
+  - **State:** Stores the customer's full name, national ID, and account creation date.
+  - **Actions:**
+    - **createCustomer:** Creates a new customer with the specified details.
+
+    - **updateName:** Updates the customer's name.
 
 This structure allows for efficient and centralized management of the app's state, making it easy to track and update account and customer information as needed.
 
@@ -71,23 +95,30 @@ This structure allows for efficient and centralized management of the app's stat
 
 ## Technologies & Dependencies used 📦
 
-- **React:** components, conditionals, functions... 
+- **React:** components, conditionals, functions...
 
-- **Redux:** store, slices, reducers 
+- **Redux:** store, slices, reducers
 
-- **Styling:** basic CSS 
+- **Styling:** basic CSS
 
 dependencies:
 
-- /dependence:/ /version number/
-- /dependence:/ /version number/
-- /dependence:/ /version number/
+- "@reduxjs/toolkit": "^2.2.7",
+- "@testing-library/jest-dom": "^5.17.0",
+- "@testing-library/react": "^13.4.0",
+- "@testing-library/user-event": "^13.5.0",
+- "react": "^18.3.1",
+- "react-dom": "^18.3.1",
+- "react-redux": "^9.1.2",
+- "react-scripts": "5.0.1",
+- "redux": "^5.0.1",
+- "redux-thunk": "^3.1.0",
+- "web-vitals": "^2.1.4"
 
 devDependencies:
 
-- /dependence:/ /version number/
-- /dependence:/ /version number/
-- /dependence:/ /version number/
+-  "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+-  "@babel/plugin-transform-private-property-in-object": "^7.24.7"
 
 ---
 
@@ -143,25 +174,25 @@ Ensure you have the following installed on your system:
 ## Project Structure 📂
 
     project-name
-    ├── public 
+    ├── public
     ├── src
-    │ ├── features 
-    │ │ ├── account 
-    │ │ │   ├── AccountOperations.js 
-    │ │ │   ├── accountSlice.js 
-    │ │ │   ├── BalanceDisplay.js  
-    │ │ ├── customers 
-    │ │ │   ├── createCustomer.js 
-    │ │ │   ├── customer.js  
-    │ │ │   ├── customerSlice.js     
-    │ ├── App.js 
-    │ ├── index.css 
-    │ ├── index.js 
-    │ ├── store-v1 
-    │ ├── store-v2 
-    │ ├── store.js 
-    ├── package.json 
-    └── README.md 
+    │ ├── features
+    │ │ ├── account
+    │ │ │   ├── AccountOperations.js
+    │ │ │   ├── accountSlice.js
+    │ │ │   ├── BalanceDisplay.js
+    │ │ ├── customers
+    │ │ │   ├── createCustomer.js
+    │ │ │   ├── customer.js
+    │ │ │   ├── customerSlice.js
+    │ ├── App.js
+    │ ├── index.css
+    │ ├── index.js
+    │ ├── store-v1
+    │ ├── store-v2
+    │ ├── store.js
+    ├── package.json
+    └── README.md
 
 ---
 
