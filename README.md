@@ -1,70 +1,170 @@
-# Getting Started with Create React App
+# React (Redux) - bank app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🔗 [Live Preview]()
 
-## Available Scripts
+![Design preview]()
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## About Project 👋
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This small practice app's main goal is to practice using managing global state using redux toolkit and vanilla redux. It allows users to deposit or withdraw money, request and repay loans into their bank accounts. It also supports simple customer creation, so new users can quickly set up their accounts.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+Created using create-react-app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Features 👨‍💻
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   **Create New Customer:** Enter your full name and national ID to create a new customer profile. This is the first step before accessing any account operations.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    -   **Account Operations:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    -   **Deposit Money:** Add money to your account in different currencies, and it will be automatically converted to USD.
 
-### `npm run eject`
+    -   **Withdraw Money:** Take money out of your account at any time.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    -   **Request a Loan:** Apply for a loan by specifying the amount and purpose. If approved, the loan amount will be added to your balance.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    -   **Pay Back Loan:** Repay your loan once you have the funds available.
+    
+    -   **Balance Display:** Always stay informed about your account balance, displayed in USD for easy understanding.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## How it works ⚙️
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1.  **App Component:**
+    -   This is the main component that renders either the customer creation form or the account operations and balance display based on whether a customer has been created.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2.  **CreateCustomer Component:**
+    -   Handles the creation of a new customer by taking inputs for full name and national ID. Dispatches the `createCustomer` action to store the customer's information in the Redux store.
 
-### Code Splitting
+3.  **Customer Component:**
+    -   Displays a welcome message with the customer's name once they have been created.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4.  **AccountOperations Component:**
+    -   This component provides a user interface for performing account operations like deposits, withdrawals, loan requests, and loan payments. It interacts with the Redux store to dispatch relevant actions.
 
-### Analyzing the Bundle Size
+5.  **BalanceDisplay Component:**
+    -   Displays the user's current balance in USD. This component pulls data from the Redux store to ensure accurate and real-time information.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### State Management
 
-### Making a Progressive Web App
+-   **Redux Store:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    -   The app uses Redux for state management, with two main slices: `accountSlice` and `customerSlice`.
 
-### Advanced Configuration
+-   **Account Slice:**
+    -   Manages the balance, loan details, and loading states related to currency conversion.
+    -   Actions include `deposit`, `withdraw`, `requestLoan`, and `payLoan`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+-   **Customer Slice:**
+    -   Handles customer details like full name, national ID, and creation date.
+    -   Actions include `createCustomer` and `updateName`.
 
-### Deployment
+This structure allows for efficient and centralized management of the app's state, making it easy to track and update account and customer information as needed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Technologies & Dependencies used 📦
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **React:** components, conditionals, functions... 
+
+- **Redux:** store, slices, reducers 
+
+- **Styling:** basic CSS 
+
+dependencies:
+
+- /dependence:/ /version number/
+- /dependence:/ /version number/
+- /dependence:/ /version number/
+
+devDependencies:
+
+- /dependence:/ /version number/
+- /dependence:/ /version number/
+- /dependence:/ /version number/
+
+---
+
+## Prerequisites 📚
+
+Ensure you have the following installed on your system:
+
+    Node.js v18.00.0
+    npm or yarn
+
+---
+
+## Clone & Run locally 🏃‍♂️
+
+1. **Clone the Repository:**
+
+   - On the GitHub repo page, click the green "Code" button.
+
+   - Copy the HTTPS URL.
+
+2. **Open the Terminal:**
+
+   - Open the terminal by typing "cmd" in your desktop's start menu, **OR**
+
+   - Right-click on the desktop and select "Git Bash Here" (if you have Git Bash installed), **OR**
+
+   - Open Visual Studio Code's terminal by clicking "Terminal" -> "New Terminal" inside the editor.
+
+3. **Navigate to Your Project Location:**
+
+   - In the terminal, navigate to your desired location (e.g., desktop) using the command: `cd desktop`. Adjust the path if your project is located elsewhere.
+
+   - Ensure that your terminal's address is inside the project folder.
+
+4. **Clone the Repository:**
+
+   - Run the command: `git clone /link/`. Replace `/link/` with the HTTPS URL from step 1.
+
+5. **Enter the Project Directory:**
+
+   - Navigate into the cloned repository by typing: `cd /folder-name/`. Replace `/folder-name/` with the name of the cloned folder.
+
+6. **Install Dependencies:**
+
+   - Run the command: `npm install` to install all the necessary dependencies.
+
+7. **Start the Project:**
+
+   - Run the command: `npm start` or `yarn start` to start the project. It will open in your default browser at [localhost:3000/](http://localhost:3000/)
+
+---
+
+## Project Structure 📂
+
+    project-name
+    ├── public 
+    ├── src
+    │ ├── features 
+    │ │ ├── account 
+    │ │ │   ├── AccountOperations.js 
+    │ │ │   ├── accountSlice.js 
+    │ │ │   ├── BalanceDisplay.js  
+    │ │ ├── customers 
+    │ │ │   ├── createCustomer.js 
+    │ │ │   ├── customer.js  
+    │ │ │   ├── customerSlice.js     
+    │ ├── App.js 
+    │ ├── index.css 
+    │ ├── index.js 
+    │ ├── store-v1 
+    │ ├── store-v2 
+    │ ├── store.js 
+    ├── package.json 
+    └── README.md 
+
+---
+
+## Contributing 💻
+
+Contributions are closed.
